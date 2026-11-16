@@ -386,6 +386,20 @@ body{overflow-x:clip}
   .code input{width:38px;height:46px}
   .cl-head .av.lg{width:44px;height:44px;font-size:16px}
 }
+/* phones: compact top bar */
+.bell{display:inline-flex;align-items:center;gap:6px}
+.bell .bic{width:18px;height:18px;flex:none}
+@media (max-width:700px){
+  .top{gap:8px}
+  .crumb small{display:none}
+  .crumb b{display:block;font-size:17px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+  .bell{width:40px;padding:0;justify-content:center}
+  .bell b,.bell #bellN{display:none}
+  .bell .bic{width:20px;height:20px}
+  .who{padding:0;border:0;background:none;max-width:none;border-radius:50%}
+  .who .nm{display:none}
+  .who .av{width:38px;height:38px;font-size:13px}
+}
 </style>
 
 <div class="app" id="app">
@@ -401,7 +415,7 @@ body{overflow-x:clip}
       <div class="gsearch"><input type="search" id="gq" autocomplete="off"><div class="gres" id="gres" hidden></div></div>
       <button class="ibtn" id="themeBtn" hidden></button>
       <div class="seg" id="lang" hidden><button data-l="tr">TR</button><button data-l="en">EN</button></div>
-      <button class="bell" id="bell"><b id="bellL"></b> <span class="mono" id="bellN"></span><i id="bellI" hidden></i></button>
+      <button class="bell" id="bell"><svg class="bic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 11l3 3 8-8"/><path d="M20 12v6a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h9"/></svg><b id="bellL"></b> <span class="mono" id="bellN"></span><i id="bellI" hidden></i></button>
       <button class="who" id="who" aria-haspopup="menu"></button>
     </header>
     <div id="modebar"></div>
@@ -2916,6 +2930,10 @@ rptPanel=function(id){return withPanel(_rpt10,p=>{const w=RPTWHO[id]||['FIN','CO
  const _gsel=ACT.gsel;if(_gsel)ACT.gsel=d=>{closeSide();return _gsel(d);};
  sync();
 })();
+;
+// top bar: readable names for the icon-only buttons on phones
+(function(){const _rt=renderTop;renderTop=function(){_rt.apply(this,arguments);
+ try{const m=myPending().length;$('bell').setAttribute('aria-label',L('Onaylarım','My approvals')+(m?' ('+m+')':''));$('who').setAttribute('aria-label',L('Profil menüsü','Profile menu'));}catch(e){}};})();
 
 ;
 // Güvenli başlangıç: eski sürümlerden kalan tarayıcı ayarları sayfayı bozmasın
