@@ -499,6 +499,20 @@ td{padding-top:12px;padding-bottom:12px}
 @media (max-width:900px){ .ng>.gl{min-height:40px;font-size:11px} }
 @media (max-width:700px){ h1{font-size:22px} .sec{margin-top:22px} .tsum b{font-size:20px} .hv .mono{font-size:14px} .hn span,.tsum .muted{font-size:12px} td{padding-top:10px;padding-bottom:10px} }
 @media (prefers-reduced-motion:reduce){.page>*{animation:none}}
+
+/* v11b overview */
+.qstrip{display:flex;flex-wrap:wrap;gap:8px;margin:-4px 0 6px}
+.qstrip .qi{display:flex;align-items:baseline;gap:8px;padding:9px 14px;border:1px solid var(--line);border-radius:999px;background:var(--card);font-size:13px}
+.qstrip .qi.click{cursor:pointer}.qstrip .qi.click:hover{border-color:var(--ink)}
+.qstrip .ql{color:var(--muted)}.qstrip b{font-weight:600}.qstrip .qx{color:var(--red);font-size:12px}
+.card.kpi.alert{border-color:var(--line)}
+.card.kpi.alert .l::before{content:"";display:inline-block;width:7px;height:7px;border-radius:50%;background:var(--red);margin-right:7px;vertical-align:1px}
+.ovg .li .rid{font-size:11.5px;color:var(--muted);white-space:nowrap}
+.ovg .li .due{font-size:12px;color:var(--muted);white-space:nowrap}
+.tdot{flex:none;width:8px;height:8px;border-radius:50%;background:var(--line);align-self:center}
+.tdot.neg{background:var(--red)}.tdot.warn{background:#d4a017}
+.btn.more{margin-top:10px;width:100%;justify-content:center}
+@media (max-width:700px){.qstrip .qi{flex:1 1 auto}.ovg .li .rid{display:none}}
 </style>
 
 <div class="app" id="app">
@@ -3122,6 +3136,34 @@ V.treasury=()=>{
 // ----- 5. Page header: the top bar already names the section, so pages show only the title and the short lead -----
 const _page11=page;
 page=o=>{const h=_page11(o);return o&&!o.eyebrow?h.replace(/(<div class="ph"><div class="t">)<div class="eyebrow">[^<]*<\/div>/,'$1'):h;};
+
+// ----- Collapse button label follows the language and state -----
+{const _rn11=renderNav;renderNav=function(){_rn11.apply(this,arguments);try{const b=$('miniBtn');if(b){const t=T(S.mini?['Menüyü genişlet','Expand menu']:['Menüyü küçült','Collapse menu']);b.setAttribute('aria-label',t);b.title=t;}}catch(e){}};}
+
+// ----- 4. Overview: four main figures, a quiet strip for the rest, work split into "yours" and "to follow" -----
+V.overview=()=>{
+ const tr=has('OPS','FIN','CFO','CEO','CTO','COO','AUD');const cp=has('CO','COMP','CEO','AUD','SUP');
+ const openN=APPROVALS.filter(a=>a.status==='open').length;const mine=myPending();
+ const main=[{l:['Onayınızı bekleyen','Waiting for you'],v:String(mine.length),alert:mine.length>0,s:[`Toplam açık ${openN}`,`${openN} open in total`],go:'approvals'}];
+ const quiet=[];
+ const lr=ROUNDS.filter(r=>['open','late','appr','due'].includes(r.st));const late=ROUNDS.filter(r=>r.st==='late').length;
+ const onb=APPS.filter(a=>!a.done&&!a.rej).length;const act=CLIENTS.filter(c=>c.st==='act').length;
+ if(tr){main.push({l:['Arz = rezerv','Supply = reserve'],v:n(B.supply)+' AGOLD',s:[`Rezerv ${n(B.supply+B.awaitMint)} g`,`Reserve ${n(B.supply+B.awaitMint)} g`],go:'stock'});
+  main.push({l:['Hazine stoku','Treasury inventory'],v:n(B.company.AGOLD)+' AGOLD',bar:B.company.AGOLD/20000*100,barc:B.company.AGOLD<10000?'r':'',s:[`Hedef 20.000 · ${n(20000-B.company.AGOLD)} eksik`,`Target 20,000 · ${n(20000-B.company.AGOLD)} short`],go:'treasury'});
+  main.push({l:['Metal Pozisyonu','Metal Position'],v:sgn(B.metal)+' g',s:[`+10 kg sınırına ${n(10000-B.metal)} g`,`${n(10000-B.metal)} g to the +10 kg limit`],go:'rmetal'});
+  quiet.push({l:['Mahsuplaşma','Netting'],v:[`${lr.length} açık tur`,`${lr.length} open rounds`],x:late?[`${late} gecikmiş`,`${late} late`]:null,go:'rnet'});}
+ if(cp){if(!tr){main.push({l:['Müşteri kabulü','Onboarding'],v:String(onb),s:[`${stgCount('flow')} Sumsub akışında`,`${stgCount('flow')} in the Sumsub flow`],go:canView('onboarding')?'onboarding':null});main.push({l:['Aktif müşteri','Active clients'],v:n(act),s:[`${n(CLIENTS.length)} toplam`,`${n(CLIENTS.length)} in total`],go:'clients'});}
+  else{quiet.push({l:['Müşteri kabulü','Onboarding'],v:[String(onb),String(onb)],x:[`${stgCount('flow')} Sumsub akışında`,`${stgCount('flow')} in Sumsub`],go:canView('onboarding')?'onboarding':null});quiet.push({l:['Aktif müşteri','Active clients'],v:[n(act),n(act)],go:'clients'});}}
+ const qs=quiet.length?`<div class="qstrip">${quiet.map(q=>`<div class="qi ${q.go?'click':''}" ${q.go?`data-act="go" data-v="${q.go}"`:''}><span class="ql">${esc(T(q.l))}</span><b>${esc(T(q.v))}</b>${q.x?`<span class="qx">${esc(T(q.x))}</span>`:''}</div>`).join('')}</div>`:'';
+ const tasks=tasksFor();const apT=tasks.filter(x=>x.ap);const fol=tasks.filter(x=>!x.ap);const K=5;
+ const apRows=apT.slice(0,K).map(x=>{const a=APPROVALS.find(y=>y.id===x.ap)||{};return `<div class="li click" data-act="openAp" data-v="approvals" data-id="${x.ap}"><div class="m"><b>${esc(T(a.kind||x.t))}</b><span>${esc(T(x.s))}</span></div><span class="mono rid">${esc(x.ap)}</span></div>`;}).join('');
+ const apBox=apT.length?`<div class="list">${apRows}</div>${apT.length>K?`<button class="btn ghost more" data-act="go" data-v="approvals">${esc(L(`Tümünü gör (${apT.length})`,`See all (${apT.length})`))}</button>`:''}`:note(['Onayınızı bekleyen iş yok.','Nothing waits for your approval.']);
+ const folBox=fol.length?`<div class="list">${fol.map(x=>`<div class="li click" data-act="go" data-v="${x.go}"><span class="tdot ${x.tone||''}" aria-hidden="true"></span><div class="m"><b>${esc(T(x.t))}</b><span>${esc(T(x.s))}</span></div><span class="due">${esc(T(x.due))}</span></div>`).join('')}</div>`:'';
+ const px=`<div class="card">${kv([[['1 AGOLD','1 AGOLD'],`USD ${n(PX.ref,2)}`],[['AED / EUR','AED / EUR'],`${n(pAED(),2)} / ${n(pEUR(),2)}`],[['Rafineri alış / satış (g)','Refinery buy / sell (g)'],`USD ${n(RPX.pb,2)} / ${n(RPX.ps,2)}`]])}</div>`;
+ const u=me();const rl=u&&u.sa?roleLbl():meRole();
+ return page({title:[`Günaydın, ${meName().split(' ')[0]}`,`Good morning, ${meName().split(' ')[0]}`],lead:[`${esc(rl)} · ${NOW[0]}`,`${esc(rl)} · ${NOW[1]}`],
+  body:kpis(main)+qs+`<div class="grid cols2 ovg"><div>${sec(['Onayınızı bekleyenler','Waiting for your approval'],apBox,`${apT.length}`)}${fol.length?sec(['Takip edilecekler','To follow up'],folBox,`${fol.length}`):''}</div><div>${tr?sec(['Fiyat','Price'],px,['Dünya Katılım canlı · 2 sn önce','Dünya Katılım live · 2 s ago']):''}${sec(['Bildirimler','Notifications'],notesHtml(4))}</div></div>`});
+};
 
 ;
 // ===== m1: mobile layout behaviours =====
