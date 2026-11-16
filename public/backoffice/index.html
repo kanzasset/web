@@ -400,6 +400,34 @@ body{overflow-x:clip}
   .who .nm{display:none}
   .who .av{width:38px;height:38px;font-size:13px}
 }
+/* phones: list tables as cards */
+@media (max-width:700px){
+  .tw.cards{background:none;border:0;border-radius:0;overflow:visible}
+  table.cardt{min-width:0;display:block}
+  table.cardt thead{display:none}
+  table.cardt tbody{display:flex;flex-direction:column;gap:8px}
+  table.cardt tr{display:block;background:var(--card);border:1px solid var(--line);border-radius:12px;padding:4px 12px}
+  table.cardt tr[data-t]{cursor:pointer}
+  table.cardt td{display:flex;align-items:baseline;justify-content:space-between;gap:12px;padding:7px 0;border:0;border-top:1px solid var(--line);text-align:right;position:static!important;box-shadow:none!important;max-width:none!important;background:none!important;white-space:normal}
+  table.cardt td::before{content:attr(data-l);flex:0 0 auto;max-width:42%;text-align:left;font-size:12px;font-weight:600;color:var(--muted);overflow-wrap:anywhere}
+  table.cardt td[data-l=""]::before{content:none}
+  table.cardt td[data-l=""]{justify-content:flex-end}
+  table.cardt td .cv{min-width:0;flex:1 1 auto;overflow-wrap:anywhere;display:flex;flex-direction:column;align-items:flex-end;gap:2px}
+  table.cardt td .cv>*{max-width:100%}
+  table.cardt td .cv .acts,table.cardt td .cv>div{align-self:stretch;text-align:right}
+  table.cardt td:first-child{display:block;text-align:left;border-top:0;padding:9px 0 7px;font-weight:700}
+  table.cardt td:first-child::before{content:none}
+  table.cardt td.cempty{display:none}
+  table.cardt td.cfull{display:block;text-align:left;border-top:0}
+  table.cardt td.cfull::before{content:none}
+  table.cardt td .sub{display:block}
+  table.cardt tr[data-t]:hover td{background:none!important}
+  table.cardt tr[data-t]:active{background:var(--surface2)}
+  /* tab bars that scroll sideways: fade where more tabs are hidden */
+  .tabs.mr{-webkit-mask-image:linear-gradient(to right,#000 82%,transparent);mask-image:linear-gradient(to right,#000 82%,transparent)}
+  .tabs.ml{-webkit-mask-image:linear-gradient(to left,#000 82%,transparent);mask-image:linear-gradient(to left,#000 82%,transparent)}
+  .tabs.ml.mr{-webkit-mask-image:linear-gradient(to right,transparent,#000 14%,#000 86%,transparent);mask-image:linear-gradient(to right,transparent,#000 14%,#000 86%,transparent)}
+}
 </style>
 
 <div class="app" id="app">
@@ -2934,6 +2962,40 @@ rptPanel=function(id){return withPanel(_rpt10,p=>{const w=RPTWHO[id]||['FIN','CO
 // top bar: readable names for the icon-only buttons on phones
 (function(){const _rt=renderTop;renderTop=function(){_rt.apply(this,arguments);
  try{const m=myPending().length;$('bell').setAttribute('aria-label',L('Onaylarım','My approvals')+(m?' ('+m+')':''));$('who').setAttribute('aria-label',L('Profil menüsü','Profile menu'));}catch(e){}};})();
+;
+// phones: list tables read as cards (label on the left, value on the right); wide matrices keep sideways scroll.
+// tab bars that scroll sideways get a fade on the side that has more, and the open tab is kept in view.
+(function(){
+ const MAXC=9;
+ function cardify(root){
+  (root.querySelectorAll?root.querySelectorAll('.tw > table:not([data-cd])'):[]).forEach(t=>{
+   t.setAttribute('data-cd','1');
+   const ths=[...t.querySelectorAll('thead th')].map(th=>(th.textContent||'').replace(/[↑↓]/g,'').trim());
+   if(!ths.length||ths.length>MAXC)return;
+   t.classList.add('cardt');t.parentNode.classList.add('cards');
+   t.querySelectorAll('tbody tr').forEach(tr=>{[...tr.children].forEach((td,i)=>{
+    if(td.colSpan>1){td.classList.add('cfull');return;}
+    td.setAttribute('data-l',ths[i]||'');
+    if(i>0&&!td.querySelector(':scope > .cv')){const d=document.createElement('div');d.className='cv';while(td.firstChild)d.appendChild(td.firstChild);td.appendChild(d);}
+    if(!(td.textContent||'').trim()&&!td.querySelector('button,input,select,a,svg'))td.classList.add('cempty');
+   });});
+  });
+ }
+ function tabsFade(root){
+  (root.querySelectorAll?root.querySelectorAll('.tabs'):[]).forEach(tb=>{
+   const upd=()=>{const more=tb.scrollWidth-tb.clientWidth>4;tb.classList.toggle('mr',more&&tb.scrollLeft+tb.clientWidth<tb.scrollWidth-4);tb.classList.toggle('ml',more&&tb.scrollLeft>4);};
+   if(!tb.__fd){tb.__fd=1;tb.addEventListener('scroll',upd,{passive:true});
+    const on=tb.querySelector('.tab.on');if(on&&tb.scrollWidth>tb.clientWidth){const l=on.offsetLeft-tb.offsetLeft;if(l+on.offsetWidth>tb.clientWidth)tb.scrollLeft=l-16;}}
+   upd();
+  });
+ }
+ let q=false;
+ const run=()=>{q=false;try{cardify(document);tabsFade(document);}catch(e){}};
+ const kick=()=>{if(q)return;q=true;(window.requestAnimationFrame||setTimeout)(run);};
+ try{new MutationObserver(kick).observe(document.body,{childList:true,subtree:true});}catch(e){}
+ window.addEventListener('resize',kick);
+ run();
+})();
 
 ;
 // Güvenli başlangıç: eski sürümlerden kalan tarayıcı ayarları sayfayı bozmasın
