@@ -5,7 +5,7 @@ Kanzasset FZCO public website, hosted on GitHub Pages at `https://kanzasset.gith
 ## Pages
 
 - `/` : pre-licence landing page (`index.html`, images in `landing/`). Content limits set by Compliance: name and logo, registered office, corporate email, VARA disclaimer. No services, products, tokens, prices, fees, sign-up or forms. Compliance approves all text before it goes live.
-- `/app/` : client panel prototype (React, `src/`), opened from the Login button. Sign-in only, no sign-up. Demo data only: there is no real authentication yet (a static site cannot check users; that needs a backend).
+- `/app/` : client panel prototype (React, `src/`), opened from the Login button. Demo data and a built-in demo login, for testing.
 
 ## Run locally
 

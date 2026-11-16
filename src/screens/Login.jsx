@@ -7,6 +7,7 @@ import { WIcon } from '../components/icons.jsx';
 import { WMark, AGOLDMark } from '../components/coinicons.jsx';
 import { WPrimary, WSecondary, WPill } from '../components/primitives.jsx';
 import { WCountdown } from '../components/shared.jsx';
+import { WebSignup } from './Signup.jsx';
 
 // ─── Shared centered auth shell — brand panel left, form right ──
 export function WAuthLayout({ children }) {
@@ -185,7 +186,7 @@ export function AuthField({ label, trailing, children }) {
 }
 
 // ─── Step 1 — email + password ────────────────────────────────
-function WebLogin({ onContinue, onForgot }) {
+function WebLogin({ onContinue, onForgot, onSignup }) {
   const [email, setEmail] = useState('ahmet@kanzasset.com');
   const [pw, setPw] = useState('••••••••••');
   const [showPw, setShowPw] = useState(false);
@@ -233,6 +234,9 @@ function WebLogin({ onContinue, onForgot }) {
           {t('Sign in with passkey')}
         </WSecondary>
 
+        <p style={{ margin: '24px 0 0', textAlign: 'center', fontFamily: WFONT, fontSize: 14, color: WBRAND.muted }}>
+          {t('New to Kanzasset?')} <button onClick={onSignup} style={{ ...authLink, fontSize: 14 }}>{t('Create an account')}</button>
+        </p>
       </div>
     </WAuthLayout>
   );
@@ -459,7 +463,7 @@ function WebResetDone({ onSignin }) {
   );
 }
 
-// ─── Auth lifecycle: login → 2fa / reset → onAuthed. Sign-in only, no sign-up ──
+// ─── Full auth lifecycle: login → 2fa / signup / reset → onAuthed ──
 export function WebAuth({ onAuthed }) {
   const [stage, setStage] = useState('login');
   const [resetEmail, setResetEmail] = useState('');
@@ -467,6 +471,7 @@ export function WebAuth({ onAuthed }) {
   const goLogin = () => setStage('login');
 
   if (stage === '2fa') return <WebVerify2FA onVerified={onAuthed} onBack={goLogin}/>;
+  if (stage === 'signup') return <WebSignup onActivated={onAuthed} onSignin={goLogin}/>;
   if (stage === 'forgot-email') return (
     <WebForgotEmail email={resetEmail} onEmailChange={setResetEmail} onSent={() => setStage('forgot-code')} onBack={goLogin}/>
   );
@@ -478,5 +483,5 @@ export function WebAuth({ onAuthed }) {
   );
   if (stage === 'forgot-done') return <WebResetDone onSignin={goLogin}/>;
 
-  return <WebLogin onContinue={() => setStage('2fa')} onForgot={() => setStage('forgot-email')}/>;
+  return <WebLogin onContinue={() => setStage('2fa')} onForgot={() => setStage('forgot-email')} onSignup={() => setStage('signup')}/>;
 }
