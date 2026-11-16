@@ -146,7 +146,7 @@ td .sub{display:block;font-size:11.5px;color:var(--muted)}
 .pnh{display:flex;gap:10px;align-items:flex-start;padding:18px 20px;border-bottom:1px solid var(--line)}
 .pnh .t{flex:1;min-width:0}
 .pnh h3{margin:2px 0 0;font-size:17px;font-weight:800;letter-spacing:-.01em;text-wrap:balance}
-.x{border:1px solid var(--line2);background:var(--card);border-radius:8px;width:32px;height:32px;cursor:pointer;flex:none;font-size:16px}
+button.x{border:1px solid var(--line2);background:var(--card);border-radius:8px;width:32px;height:32px;cursor:pointer;flex:none;font-size:16px}
 .pnb{flex:1;overflow-y:auto;padding:18px 20px;display:flex;flex-direction:column;gap:16px}
 .pnf{border-top:1px solid var(--line);padding:14px 20px;display:flex;flex-wrap:wrap;gap:8px;align-items:center}
 .pnf .why{font-size:12px;color:var(--muted);flex-basis:100%}
@@ -282,7 +282,7 @@ th.sort{cursor:pointer;user-select:none} th.sort:hover{color:var(--ink)}
 .cov b{font-family:var(--mono);font-size:14px}
 .box2{padding:12px 14px;border-radius:11px;background:var(--surface);border:1px solid var(--line)}
 .box2 .k{font-size:10px;font-weight:700;color:var(--muted2);letter-spacing:.06em;text-transform:uppercase}
-.box2 .x{font-family:var(--mono);font-size:18px;font-weight:700;margin-top:5px}
+.box2 .bv{font-family:var(--mono);font-size:18px;font-weight:700;margin-top:5px}
 .box2 .y{font-size:11px;color:var(--muted);margin-top:4px;line-height:1.5}
 .stage{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:8px;margin:4px 0 12px}
 .stage>div{border:1px solid var(--line);border-radius:10px;padding:9px 10px;font-size:12px;background:var(--card)}
@@ -293,7 +293,7 @@ th.sort{cursor:pointer;user-select:none} th.sort:hover{color:var(--ink)}
 .docprev{border:1px solid var(--line2);border-radius:12px;background:var(--surface);padding:16px;margin-bottom:12px}
 .docprev .sheet{background:#fff;color:#0A0A0A;border-radius:8px;box-shadow:0 2px 10px rgba(0,0,0,.08);padding:16px;font-size:12px;min-height:180px}
 .docprev .sheet .hd{display:flex;justify-content:space-between;border-bottom:1px solid #ECECEA;padding-bottom:8px;margin-bottom:10px;font-weight:800}
-.docprev .sheet .ph{width:72px;height:90px;border-radius:6px;background:linear-gradient(135deg,#d9d9d6,#bdbdb9);float:left;margin:0 12px 6px 0}
+.docprev .sheet .pho{width:72px;height:90px;border-radius:6px;background:linear-gradient(135deg,#d9d9d6,#bdbdb9);float:left;margin:0 12px 6px 0}
 .docprev .sheet .ln{display:flex;justify-content:space-between;border-bottom:1px dashed #ECECEA;padding:4px 0}
 .docprev .sheet .ln span{color:#7A7A7E}
 .docprev .sheet .mz{font-family:var(--mono);font-size:10.5px;letter-spacing:.08em;margin-top:10px;color:#3A3A3E;clear:both}
@@ -343,7 +343,7 @@ body{overflow-x:clip}
   .ibtn,.bell{height:40px;min-width:40px}
   .who{padding:5px}
   .av{width:30px;height:30px;font-size:12px}
-  .x{width:40px;height:40px;font-size:20px}
+  button.x{width:40px;height:40px;font-size:20px}
   .pnh{padding:12px 14px 12px 16px}
   .pnh h3{font-size:16px}
   .pnb{padding:14px 16px;gap:14px}
@@ -430,6 +430,75 @@ body{overflow-x:clip}
 }
 /* phones: bigger hit area for links in text, pills wrap instead of overflowing */
 @media (max-width:700px){ .content a:not(.btn),.panel a:not(.btn){position:relative} .content a:not(.btn)::after,.panel a:not(.btn)::after{content:"";position:absolute;inset:-12px -6px} .pill{max-width:100%;white-space:normal} .back{min-height:40px;padding:0 4px 0 0;margin-bottom:2px} .seg button{min-height:36px;padding:0 12px} .seg.sm button{min-height:32px;padding:0 10px} }
+
+/* ===== v11: collapsible menu groups, treasury holdings, calmer polish ===== */
+/* menu groups */
+.ng{margin-top:6px}
+.ng>.gl{display:flex;align-items:center;gap:8px;width:100%;border:0;background:none;cursor:pointer;text-align:left;padding:8px 12px;border-radius:8px;font-family:inherit;font-size:10.5px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--muted2)}
+.ng>.gl span{flex:1;min-width:0}
+.ng>.gl:hover{color:var(--ink);background:var(--surface2)}
+.ng>.gl:focus-visible{outline:2px solid var(--red);outline-offset:1px}
+.ng>.gl .chev{flex:none;transition:transform .18s ease;opacity:.8}
+.ng.shut>.gl .chev{transform:rotate(-90deg)}
+.ng>.gl .ct{font-size:10.5px;font-weight:800;background:var(--red);color:#fff;border-radius:10px;padding:1px 7px;letter-spacing:0}
+.ng>.gl .cd{width:6px;height:6px;border-radius:3px;background:var(--red);flex:none}
+.ng.cur>.gl{color:var(--muted)}
+.ng .ngi{display:flex;flex-direction:column;gap:1px;padding-bottom:4px}
+.ng.shut .ngi{display:none}
+/* treasury: our assets */
+.tsum{display:flex;flex-wrap:wrap;gap:10px 28px;align-items:baseline;margin:0 0 12px}
+.tsum>div{display:flex;flex-direction:column;gap:2px;min-width:0}
+.tsum .muted{font-size:12px;font-weight:600}
+.tsum b{font-size:22px;font-weight:600;letter-spacing:-.02em}
+.tsum>div:not(:first-child) b{font-size:16px}
+.tsum.one b{font-size:18px}
+.lack{margin-bottom:12px}
+.lack ul{margin:6px 0 0;padding-left:18px}
+.lack li{margin:2px 0}
+.hold4{grid-template-columns:repeat(auto-fit,minmax(min(260px,100%),1fr));gap:14px}
+.card.hold{padding:16px 18px 8px}
+.card.hold.click{cursor:pointer}
+.card.hold.click:hover{border-color:var(--muted2)}
+.hold .hh{display:flex;align-items:baseline;justify-content:space-between;gap:10px;margin-bottom:6px}
+.hold .hh h3{margin:0;font-size:14px;font-weight:800}
+.hold .hh .mono{font-size:12px;color:var(--muted);white-space:nowrap}
+.hrow{display:flex;align-items:center;justify-content:space-between;gap:12px;padding:10px 0;border-top:1px solid var(--line)}
+.hrow:first-of-type{border-top:0}
+.hold .hh+.hrow{border-top:0}
+.hn{min-width:0;display:flex;flex-direction:column}
+.hn b{font-size:13px}
+.hn span{font-size:11.5px;color:var(--muted)}
+.hv{display:flex;flex-direction:column;align-items:flex-end;gap:4px;text-align:right}
+.hv .mono{font-size:14.5px;font-weight:600;white-space:nowrap}
+/* stat boxes: value and caption always stack, never overlap */
+.box2{display:flex;flex-direction:column;gap:4px;min-width:0}
+.box2 .bv{display:block;font-family:var(--mono);font-size:18px;font-weight:700;line-height:1.25;margin-top:2px;overflow-wrap:anywhere}
+.box2 .y{margin-top:0}
+/* calmer surfaces, closer to the client panel */
+.card,.tw,.leg,.li,.step{box-shadow:0 1px 2px rgba(10,10,10,.04)}
+.card{border-radius:16px}
+.sec{margin-top:28px}
+.sh{margin-bottom:12px}
+.sh h2{font-size:15px;letter-spacing:-.01em}
+h1{font-size:26px;margin:0 0 6px}
+.lead{line-height:1.55}
+.ph{margin-bottom:22px}
+.ni{color:var(--ink);opacity:.78;font-weight:500;padding:8px 12px}
+.ni:hover{opacity:1}
+.ni.on{opacity:1;font-weight:700}
+.btn{transition:background .16s ease,border-color .16s ease,box-shadow .16s ease,transform .1s ease,filter .16s ease}
+.btn:not([disabled]):active{transform:scale(.97)}
+.btn.pri:not([disabled]):hover{filter:brightness(1.06);box-shadow:0 8px 22px -10px rgba(212,32,43,.55)}
+th{background:var(--surface2);font-weight:700}
+td{padding-top:12px;padding-bottom:12px}
+.note{border-radius:12px;line-height:1.5}
+.kpi .v{margin-top:7px}
+@keyframes kzIn{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:none}}
+.page>*{animation:kzIn .32s cubic-bezier(.2,.7,.3,1) backwards}
+.page>*:nth-child(2){animation-delay:.04s}.page>*:nth-child(3){animation-delay:.08s}.page>*:nth-child(n+4){animation-delay:.12s}
+@media (max-width:900px){ .ng>.gl{min-height:40px;font-size:11px} }
+@media (max-width:700px){ h1{font-size:22px} .sec{margin-top:22px} .tsum b{font-size:20px} .hv .mono{font-size:14px} .hn span,.tsum .muted{font-size:12px} td{padding-top:10px;padding-bottom:10px} }
+@media (prefers-reduced-motion:reduce){.page>*{animation:none}}
 </style>
 
 <div class="app" id="app">
@@ -2459,7 +2528,7 @@ const CASHC=['AED','USD','EUR','USDT','USDC'];
 const coFree=a=>(B.company[a]||0)-(LOCKED[a]||0);
 const CLI_WHERE=a=>['AGOLD','USDT','USDC'].includes(a)?['W-05, W-06 · BitGo müşteri omnibus cüzdanları','W-05, W-06 · BitGo client omnibus wallets']:['BK-03 · Zand Bank müşteri parası hesabı','BK-03 · Zand Bank client money account'];
 function covBox(title,big,lines,p,foot){const pc=Math.max(0,p);return `<div class="card"><div class="sh" style="margin:0 0 6px"><h2>${esc(T(title))}</h2></div>
- <div class="grid cols2" style="gap:10px">${lines.map(([k,x,y])=>`<div class="box2"><div class="k">${esc(T(k))}</div><div class="x">${x}</div>${y?`<div class="y">${T(y)}</div>`:''}</div>`).join('')}</div>
+ <div class="grid cols2" style="gap:10px">${lines.map(([k,x,y])=>`<div class="box2"><div class="k">${esc(T(k))}</div><div class="bv">${x}</div>${y?`<div class="y">${T(y)}</div>`:''}</div>`).join('')}</div>
  <div class="cov"><div class="track"><i class="${pc<25?'w':''}" style="width:${Math.min(100,Math.max(2,pc))}%"></i></div><b>${L(`%${n(pc,1)}`,`${n(pc,1)}%`)}</b></div>
  <div class="muted" style="font-size:12px;margin-top:6px">${T(big)}</div>${foot?`<div class="muted" style="font-size:11.5px;margin-top:8px">${T(foot)}</div>`:''}</div>`;}
 V.treasury=()=>{
@@ -2579,8 +2648,8 @@ function clientDocs(c){const h=hh(c.id);const ss=c.ty==='C'?[['lic',['Ticaret li
 const supView=()=>has('SUP')&&!has('CO','COMP','AUD','CEO');
 function docSheet(c,x){const h=hh(c.id);const sup=supView();const M=s=>sup?'•••••':s;const parts=c.nm.split(' ');const ctry=T(CTRYN[c.ctry]||[c.ctry,c.ctry]);
  const ln=(k,v)=>`<div class="ln"><span>${esc(T(k))}</span><b>${esc(v)}</b></div>`;
- if(x.k==='id'||x.k==='uid'){const nm=x.k==='uid'?`${FIRST[h%FIRST.length]} ${LAST[(h>>5)%LAST.length]}`:c.nm;return `<div class="sheet"><div class="hd"><span>${L('KİMLİK KARTI','IDENTITY CARD')}</span><span>${esc(ctry)}</span></div><div class="ph"></div>${ln(['Ad soyad','Name'],nm)}${ln(['Belge no','Document no'],M('784-'+(1980+h%25)+'-'+String(h%9000000+1000000)))}${ln(['Doğum tarihi','Date of birth'],M(`${String(1+h%28).padStart(2,'0')}.${String(1+(h>>3)%12).padStart(2,'0')}.${1965+h%35}`))}${ln(['Geçerlilik','Expiry'],`${String(1+(h>>4)%28).padStart(2,'0')}.${String(1+(h>>6)%12).padStart(2,'0')}.${2028+h%5}`)}<div class="mz">${sup?'••••••••••••••••••••••••••••••':esc(`IDARE${(parts[parts.length-1]||'').toUpperCase().replace(/[^A-Z]/g,'')}<<${(parts[0]||'').toUpperCase().replace(/[^A-Z]/g,'')}<<<<<<<<`)}</div></div>`;}
- if(x.k==='live')return `<div class="sheet"><div class="hd"><span>${L('CANLILIK KONTROLÜ','LIVENESS CHECK')}</span><span>Sumsub</span></div><div style="display:flex;gap:8px;margin-bottom:10px">${[0,1,2].map(()=>'<div class="ph" style="float:none;margin:0;width:70px;height:88px"></div>').join('')}</div>${ln(['Sonuç','Result'],L('Geçti','Passed'))}${ln(['Canlılık puanı','Liveness score'],'0.98')}${ln(['Kimlikle yüz eşleşmesi','Face match with ID'],'97%')}${ln(['Süre','Duration'],L('6 sn video','6 s video'))}</div>`;
+ if(x.k==='id'||x.k==='uid'){const nm=x.k==='uid'?`${FIRST[h%FIRST.length]} ${LAST[(h>>5)%LAST.length]}`:c.nm;return `<div class="sheet"><div class="hd"><span>${L('KİMLİK KARTI','IDENTITY CARD')}</span><span>${esc(ctry)}</span></div><div class="pho"></div>${ln(['Ad soyad','Name'],nm)}${ln(['Belge no','Document no'],M('784-'+(1980+h%25)+'-'+String(h%9000000+1000000)))}${ln(['Doğum tarihi','Date of birth'],M(`${String(1+h%28).padStart(2,'0')}.${String(1+(h>>3)%12).padStart(2,'0')}.${1965+h%35}`))}${ln(['Geçerlilik','Expiry'],`${String(1+(h>>4)%28).padStart(2,'0')}.${String(1+(h>>6)%12).padStart(2,'0')}.${2028+h%5}`)}<div class="mz">${sup?'••••••••••••••••••••••••••••••':esc(`IDARE${(parts[parts.length-1]||'').toUpperCase().replace(/[^A-Z]/g,'')}<<${(parts[0]||'').toUpperCase().replace(/[^A-Z]/g,'')}<<<<<<<<`)}</div></div>`;}
+ if(x.k==='live')return `<div class="sheet"><div class="hd"><span>${L('CANLILIK KONTROLÜ','LIVENESS CHECK')}</span><span>Sumsub</span></div><div style="display:flex;gap:8px;margin-bottom:10px">${[0,1,2].map(()=>'<div class="pho" style="float:none;margin:0;width:70px;height:88px"></div>').join('')}</div>${ln(['Sonuç','Result'],L('Geçti','Passed'))}${ln(['Canlılık puanı','Liveness score'],'0.98')}${ln(['Kimlikle yüz eşleşmesi','Face match with ID'],'97%')}${ln(['Süre','Duration'],L('6 sn video','6 s video'))}</div>`;
  if(x.k==='poa'){const city=c.ctry==='AE'?'Dubai':ctry;return `<div class="sheet"><div class="hd"><span>${c.ctry==='AE'?'DEWA':L('FATURA','UTILITY BILL')}</span><span>${L('Adres belgesi','Proof of address')}</span></div>${ln(['Ad','Name'],c.nm)}${ln(['Adres','Address'],sup?'•••••, '+city:`${10+h%180} ${['Marina Walk','Al Wasl Road','Sheikh Zayed Road','Jumeirah Beach Road'][h%4]}, ${city}`)}${ln(['Fatura tarihi','Bill date'],c.joined)}${ln(['Tutar','Amount'],M('AED '+n(200+h%600,2)))}</div>`;}
  if(x.k==='lic')return `<div class="sheet"><div class="hd"><span>${L('TİCARET LİSANSI','TRADE LICENCE')}</span><span>${['DMCC','DED Dubai','ADGM'][h%3]}</span></div>${ln(['Şirket','Company'],c.nm)}${ln(['Lisans no','Licence no'],M('DMCC-'+String(h%900000+100000)))}${ln(['Faaliyet','Activity'],L('Değerli metal ticareti','Precious metals trading'))}${ln(['Geçerlilik','Expiry'],`${2027+h%3}-${String(1+h%12).padStart(2,'0')}-30`)}</div>`;
  if(x.k==='moa')return `<div class="sheet"><div class="hd"><span>${L('ANA SÖZLEŞME','MEMORANDUM OF ASSOCIATION')}</span><span>${L('Sayfa 1 / 14','Page 1 of 14')}</span></div>${ln(['Şirket','Company'],c.nm)}${ln(['Kuruluş','Incorporated'],`20${10+h%14}`)}${ln(['Sermaye','Share capital'],M('AED '+n(50000+(h%20)*50000)))}<div class="muted" style="margin-top:10px;font-size:11px">${L('Belgenin tamamı indirilerek açılır.','Download to read the full document.')}</div></div>`;
@@ -2923,6 +2992,136 @@ rptPanel=function(id){return withPanel(_rpt10,p=>{const w=RPTWHO[id]||['FIN','CO
  p.blocks=(p.blocks||[]).map(b=>[b[0],typeof b[1]==='string'?b[1].replace('Sermaye ve likidite modülü','Risk göstergeleri ve finans defteri').replace('Capital and liquidity module','Risk indicators and the finance ledger'):b[1]]);
  const links=[['recon',['Arz ve rezerv','Supply and reserve'],['Günlük mutabakat','Daily reconciliation']],['assets',['Nakit ve cüzdanlar','Cash and wallets'],['Şirket varlıkları','Company assets']],['risk',['NLA ve risk','NLA and risk'],['Risk','Risk']],['governance',['İlişkili taraf işlemleri','Related-party trades'],['Yönetişim · İlişkili taraflar','Governance · Related parties']]];
  p.blocks.push([['Kaynak ekranlar','Source screens'],kv(links.map(([v,l,s])=>[l,canView(v)?`<span>${link(s,v)}</span>`:s]))]);})(id);};
+
+;
+// ===== v11: plain names instead of document codes, collapsible menu groups, treasury starts with our own assets =====
+
+// ----- 1. Plain names. Register codes from the requirements documents (MC-01 … MC-16, I1 … I5, FL-xx, API-xx) are not shown as labels. -----
+const CODE_NM={
+ 'MC-01':[['kabul','kabul kararı'],['onboarding','onboarding decision']],
+ 'MC-02':[['tarama','tarama incelemesi'],['screening','screening review']],
+ 'MC-03':[['rezerv çıkışı','rezerv çıkışı onayı'],['reserve release','reserve release approval']],
+ 'MC-04':[['basım','basım onayı'],['mint','mint approval']],
+ 'MC-05':[['yakım','yakım onayı'],['burn','burn approval']],
+ 'MC-06':[['imha ve durdurma','imha ve durdurma onayı'],['destroy and pause','destroy and pause approval']],
+ 'MC-07':[['kara liste','kara liste onayı'],['blacklist','blacklist approval']],
+ 'MC-08':[['yönetişim','yönetişim onayı'],['governance','governance approval']],
+ 'MC-09':[['kripto çekim','kripto çekim onayı'],['crypto withdrawal','crypto withdrawal approval']],
+ 'MC-10':[['cüzdan transferi','cüzdan transferi onayı'],['wallet transfer','wallet transfer approval']],
+ 'MC-11':[['teslim talimatı','teslim talimatı onayı'],['delivery instruction','delivery instruction approval']],
+ 'MC-12':[['şirket ödemesi','şirket ödemesi onayı'],['company payment','company payment approval']],
+ 'MC-13':[['marj ve limit','marj ve limit onayı'],['margin and limit','margin and limit approval']],
+ 'MC-14':[['dondurma','dondurma kararı'],['freeze','freeze decision']],
+ 'MC-15':[['mutabakat','mutabakat onayı'],['reconciliation','reconciliation sign-off']],
+ 'MC-16':[['erişim','erişim onayı'],['access','access approval']],
+ 'I1':[['arz ve rezerv','arz ve rezerv kontrolü'],['supply and reserve','supply and reserve check']],
+ 'I2':[['hazine altını','hazine altını kontrolü'],['treasury gold','treasury gold check']],
+ 'I3':[['müşteri AGOLD\'u','müşteri AGOLD kontrolü'],['client AGOLD','client AGOLD check']],
+ 'I4':[['müşteri parası','müşteri parası kontrolü'],['client money','client money check']],
+ 'I5':[['Metal Pozisyonu','Metal Pozisyonu kontrolü'],['Metal Position','Metal Position check']]
+};
+const CODE_RX='(?:(?:MC|FL|OI)-\\d{1,3}|(?:API|SOC)-\\d{1,3}[A-Z]?|I[1-5])';
+const API_NM={};try{API.forEach(a=>API_NM[a.id]=a.n);}catch(e){}
+const CH_NM={'CH-2':['Fiyat akışı','Price stream'],'CH-4':['Rafineriye giden','To the Refinery'],'CH-5':['Rafineriden gelen','From the Refinery']};
+const cap1=s=>s?s.charAt(0).toLocaleUpperCase(S.lang==='tr'?'tr-TR':'en-US')+s.slice(1):s;
+function codeName(c,short){if(API_NM[c])return T(API_NM[c]);if(CH_NM[c])return T(CH_NM[c]);if(c==='CM')return L('müşteri parası çıkışı','client money release');const x=CODE_NM[c];if(!x)return null;const p=x[S.lang==='tr'?0:1];return short?p[0]:p[1];}
+function plainCodes(s,mono){
+ if(!s||!/(?:MC|FL|API|SOC|OI|CH)-\d|\bI[1-5]\b|· CM$|^CM$/.test(s))return s;
+ const lead=s.match(/^\s*/)[0];let t=s;
+ // channel codes always read as names
+ t=t.replace(/\bCH-[245]\b/g,c=>T(CH_NM[c]));
+ if(t.trim()==='CM')return lead+cap1(codeName('CM'));
+ t=t.replace(/ · CM$/,' · '+cap1(codeName('CM')));
+ // a message number standing alone (catalogue code cells) stays; a register code standing alone becomes its name
+ const whole=t.trim().match(new RegExp('^('+CODE_RX+')$'));if(whole){if(mono&&/^(API|SOC)-/.test(whole[1]))return t;const nm=codeName(whole[1]);if(nm)return lead+cap1(nm);}
+ // a source line ending in message numbers: keep the policy reference only
+ t=t.replace(/\s*·\s*(?:API|SOC)-\d{1,3}[A-Z]?(?:\s*[,/]\s*(?:API|SOC)-\d{1,3}[A-Z]?)*\s*$/,'');
+ t=t.replace(/MC-\d\d kaydını aç/g,'Onay kaydını aç').replace(/Open the MC-\d\d record/g,'Open the approval record');
+ t=t.replace(/MC-\d\d karar kaydını/g,'karar kaydını').replace(/the MC-\d\d decision record/g,'the decision record');
+ t=t.replace(/\bI1 ile I5\b/g,'beş kontrol').replace(/\bI1 to I5\b/g,'five checks');
+ t=t.replace(/\bI1 after\b/g,'After the supply and reserve check').replace(/need MC-01\b/g,'need a CO/MLRO onboarding decision').replace(new RegExp('\\b('+CODE_RX+') is approved','g'),(m,c)=>(codeName(c,true)||c)+' is approved');
+ t=t.replace(/Açık MC-16/g,'Açık erişim talepleri').replace(/Open MC-16/g,'Open access requests');
+ // parenthetical code references
+ t=t.replace(new RegExp('\\s*\\(\\s*'+CODE_RX+'(?:\\s*(?:,|/|ve|and|ile|to)\\s*'+CODE_RX+')*\\s*\\)','g'),'');
+ // "MC-03: the CFO …" rule prefixes
+ t=t.replace(new RegExp('(^|[\\s(])'+CODE_RX+':\\s+','g'),'$1');
+ // " · MC-03" and "MC-15 · "
+ t=t.replace(new RegExp('\\s*·\\s*'+CODE_RX+'(?=\\s*(?:\\(|$|·|<))','g'),'').replace(new RegExp('(^|\\s)'+CODE_RX+'\\s*·\\s*','g'),'$1');
+ // anything left: the plain name; the short form when "approval", "quorum" and the like follow
+ t=t.replace(new RegExp('\\b('+CODE_RX+')\\b(?=(\\s+(?:onay|karar|yeter|incelem|approval|quorum|decision|review|sign-off))?)','g'),(m,c,sh)=>codeName(c,!!sh)||m);
+ t=t.replace(/(^|\s)([\wçğıöşüÇĞİÖŞÜ]+(?: [\wçğıöşüÇĞİÖŞÜ]+)?) \2(?=\s|$)/gu,'$1$2');
+ t=t.replace(/\s{2,}/g,' ').replace(/\s+([.,;:)])/g,'$1').replace(/\(\s*\)/g,'');
+ // capitalise when the text now starts with a name
+ if(t.trim()&&t.trim()!==s.trim()&&/^[a-zçğıöşü]/.test(t.trim())&&/^[A-ZÇĞİÖŞÜ0-9]/.test(s.trim()))t=t.replace(/^(\s*)(\S)/,(m,a,b)=>a+b.toLocaleUpperCase(S.lang==='tr'?'tr-TR':'en-US'));
+ return lead&&!t.startsWith(lead)?lead+t.trimStart():t;}
+function plainDom(root){if(!root||!root.ownerDocument&&root.nodeType!==9)return;
+ try{const doc=root.ownerDocument||root;const w=doc.createTreeWalker(root,4);let nd;const ch=[];while((nd=w.nextNode())){const p=nd.parentNode;if(p&&(p.nodeName==='SCRIPT'||p.nodeName==='STYLE'))continue;const v=nd.nodeValue;const r=plainCodes(v,!!(p&&p.classList&&p.classList.contains('mono')));if(r!==v)ch.push([nd,r]);}
+  ch.forEach(([x,r])=>x.nodeValue=r);
+  if(root.querySelectorAll)root.querySelectorAll('[title],[aria-label]').forEach(el=>{['title','aria-label'].forEach(a=>{const v=el.getAttribute(a);if(v){const r=plainCodes(v);if(r!==v)el.setAttribute(a,r);}});});}catch(e){}}
+const plainAll=()=>['content','pnT','pnB','pnF','crumb','toast','gres','nav','modebar','dd'].forEach(id=>{const el=$(id);if(el)plainDom(el);});
+(()=>{const _rr=rerender;rerender=function(){const r=_rr.apply(this,arguments);plainAll();return r;};
+ const _rp=renderPanel;renderPanel=function(){const r=_rp.apply(this,arguments);['pnT','pnB','pnF'].forEach(id=>plainDom($(id)));return r;};
+ const _ts=toast;toast=function(m){_ts(m);try{const e=$('toast');e.textContent=plainCodes(e.textContent);}catch(x){}};
+ try{if(typeof MutationObserver!=='undefined'){let busy=false;const mo=new MutationObserver(ms=>{if(busy)return;busy=true;try{ms.forEach(m=>{m.addedNodes&&m.addedNodes.forEach(nd=>{if(nd.nodeType===1)plainDom(nd);else if(nd.nodeType===3){const r=plainCodes(nd.nodeValue);if(r!==nd.nodeValue)nd.nodeValue=r;}});});}finally{busy=false;}});
+  ['content','panel','gres','toast','dd'].forEach(id=>{const el=$(id);if(el)mo.observe(el,{childList:true,subtree:true});});}}catch(e){}})();
+
+// ----- 2. Menu groups open and close; the choice is remembered, the current page's group opens when you go there -----
+const NAVO=(()=>{try{const v=JSON.parse(LS('kzbo.navopen')||'null');if(Array.isArray(v))return new Set(v);}catch(e){}return new Set(['g0']);})();
+const saveNavo=()=>LS('kzbo.navopen',JSON.stringify([...NAVO]));
+function navGroupOf(v){if(v==='client')v='clients';for(const g of NAV)if(g[2].some(it=>it[0]===v))return g[0];return null;}
+let NAVLAST=null;
+renderNav=function(){const mine=myPending().length;const cur=navGroupOf(S.view);
+ if(cur&&cur!==NAVLAST){NAVO.add(cur);NAVLAST=cur;saveNavo();}
+ $('nav').innerHTML=NAV.map(([g,gl,items])=>{const vis=items.filter(([v])=>canView(v));if(!vis.length)return '';const open=NAVO.has(g);
+  const hasCur=vis.some(([v])=>S.view===v||(S.view==='client'&&v==='clients'));const badge=!open&&vis.some(([v])=>v==='approvals')&&mine?`<span class="ct">${mine}</span>`:'';
+  return `<div class="ng ${open?'':'shut'} ${hasCur?'cur':''}"><button class="gl" type="button" data-act="navg" data-g="${g}" aria-expanded="${open?'true':'false'}"><span>${esc(T(gl))}</span>${badge}${!open&&hasCur?'<i class="cd" aria-hidden="true"></i>':''}<svg class="chev" width="12" height="12" viewBox="0 0 12 12" aria-hidden="true"><path d="M3 4.5 6 7.5 9 4.5" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg></button><div class="ngi">${vis.map(([v,l])=>`<button class="ni ${S.view===v||(S.view==='client'&&v==='clients')?'on':''}" data-act="go" data-v="${v}">${esc(T(l))}${v==='approvals'&&mine?`<span class="ct">${mine}</span>`:''}</button>`).join('')}</div></div>`;}).join('');};
+ACT.navg=d=>{if(NAVO.has(d.g))NAVO.delete(d.g);else NAVO.add(d.g);saveNavo();renderNav();try{const b=document.querySelector(`#nav .gl[data-g="${d.g}"]`);if(b)b.focus();}catch(e){}};
+
+// ----- 3. Treasury summary: first what we hold and what we lack, then what we can cover, then client assets -----
+const FLOORS={USD:500000,USDT:750000};const SEEDG=20000;
+function holdRow(name,val,unit,opt){opt=opt||{};const v=+val||0;
+ const st=opt.st||(v<=0?['Yok','None','neg']:opt.floor&&v<opt.floor?['Tabanın altında','Below floor','warn']:['Var','Held','pos']);
+ return `<div class="hrow"><div class="hn"><b>${esc(T(name))}</b>${opt.sub?`<span>${T(opt.sub)}</span>`:''}</div><div class="hv"><span class="mono">${unit&&unit!=='g'&&unit!=='AGOLD'&&unit!=='ETH'?unit+' ':''}${opt.fmt?opt.fmt(v):n(v)}${unit==='g'||unit==='AGOLD'||unit==='ETH'?' '+unit:''}</span>${pill(st.slice(0,2),st[2])}</div></div>`;}
+function holdCard(title,usdv,rows,go){return `<div class="card hold ${go?'click':''}" ${go?`data-act="go" data-v="${go}"`:''}><div class="hh"><h3>${esc(T(title))}</h3><span class="mono">USD ${n(usdv)}</span></div>${rows.join('')}</div>`;}
+V.treasury=()=>{
+ const cofree=a=>(B.company[a]||0)-(LOCKED[a]||0);
+ const freeUSD=CASHC.reduce((s,a)=>s+usd(a,coFree(a)),0);const coUSD=Object.keys(B.company).reduce((s,a)=>s+usd(a,B.company[a]||0),0);
+ const mt=mintableTotal();const gold=B.company.AGOLD+mt;
+ const cliCash=CASHC.reduce((s,a)=>s+usd(a,CLIENT_TOT[a]||0),0);const cliUSD=Object.keys(CLIENT_TOT).reduce((s,a)=>s+usd(a,CLIENT_TOT[a]||0),0);
+ const bp=cliCash/PX.ref;const cliAg=CLIENT_TOT.AGOLD||0;const cliAgUSD=usd('AGOLD',cliAg);
+ const dep=MOVES.filter(m=>m.day===17&&(m.k==='fd'||m.k==='cd')).sort((a,b)=>usd(b.ccy,b.v)-usd(a.ccy,a.v));let big=dep.filter(m=>usd(m.ccy,m.v)>=100000);if(big.length<3)big=dep.slice(0,5);
+ const bigUSD=big.reduce((s,m)=>s+usd(m.ccy,m.v),0);
+ const fiatUSD=['AED','USD','EUR'].reduce((s,a)=>s+usd(a,cofree(a)),0),stUSD=['USDT','USDC'].reduce((s,a)=>s+usd(a,B.company[a]||0),0),goldUSD=usd('AGOLD',B.company.AGOLD),lockUSD=usd('AED',LOCKED.AED||0),ethUSD=usd('ETH',B.company.ETH||0);
+ // what we lack, in one line each
+ const lack=[];
+ Object.entries(FLOORS).forEach(([a,f])=>{const v=B.company[a]||0;if(v<f)lack.push([`${a} tamponu: ${n(f-v)} eksik (taban ${n(f)})`,`${a} buffer: ${n(f-v)} short (floor ${n(f)})`]);});
+ if(B.company.AGOLD<SEEDG)lack.push([`Hazine altını: ${n(SEEDG-B.company.AGOLD)} AGOLD eksik (hedef ${n(SEEDG)})`,`Treasury gold: ${n(SEEDG-B.company.AGOLD)} AGOLD short (target ${n(SEEDG)})`]);
+ if(mt<=0)lack.push(['Basılabilir altın yok: rafineride tahsisli, basılmamış metal yok','No mintable gold: no allocated, unminted metal at the Refinery']);
+ const lackHtml=lack.length?`<div class="note warn lack"><b>${L('Eksik olanlar','What we lack')}</b><ul>${lack.map(x=>`<li>${esc(T(x))}</li>`).join('')}</ul></div>`:note(['Tüm tamponlar ve altın hedefi karşılanıyor.','All buffers and the gold target are met.'],'fix');
+ const own=`<div class="grid hold4">${[
+  holdCard(['Nakit (fiat)','Cash (fiat)'],fiatUSD,[holdRow(['Dirhem','Dirham'],cofree('AED'),'AED',{sub:['Zand Bank işletme hesabı','Zand Bank operating account']}),holdRow(['Dolar','Dollar'],B.company.USD,'USD',{floor:FLOORS.USD,sub:[`Taban ${n(FLOORS.USD)}`,`Floor ${n(FLOORS.USD)}`]}),holdRow(['Euro','Euro'],B.company.EUR,'EUR',{sub:['Zand Bank işletme hesabı','Zand Bank operating account']})],'assets'),
+  holdCard(['Stablecoin','Stablecoins'],stUSD,[holdRow(['USDT','USDT'],B.company.USDT,'',{floor:FLOORS.USDT,sub:[`Taban ${n(FLOORS.USDT)} · BitGo`,`Floor ${n(FLOORS.USDT)} · BitGo`]}),holdRow(['USDC','USDC'],B.company.USDC,'',{sub:['BitGo hazine cüzdanları','BitGo treasury wallets']})],'assets'),
+  holdCard(['Altın','Gold'],goldUSD,[holdRow(['Hazine stoku','Treasury inventory'],B.company.AGOLD,'AGOLD',{floor:SEEDG,sub:[`Hedef ${n(SEEDG)}`,`Target ${n(SEEDG)}`],st:B.company.AGOLD<=0?null:B.company.AGOLD<SEEDG?['Hedefin altında','Below target','warn']:null}),holdRow(['Basılabilir','Mintable'],mt,'AGOLD',{sub:['Rafineride tahsisli, basılmamış','Allocated at the Refinery, not minted']}),holdRow(['Metal Pozisyonu','Metal Position'],B.metal,'g',{fmt:sgn,sub:['Rafineri ile açık pozisyon','Open position with the Refinery'],st:B.metal===0?['Kapalı','Flat','out']:['Açık','Open','info']})],'stock'),
+  holdCard(['Kilitli sermaye ve diğer','Locked capital and other'],lockUSD+ethUSD,[holdRow(['Düzenleyici sermaye','Regulatory capital'],LOCKED.AED||0,'AED',{sub:['VARA lehine, kilitli · Zand Bank','VARA beneficiary, locked · Zand Bank'],st:['Kilitli','Locked','ink']}),holdRow(['ETH (gas)','ETH (gas)'],B.company.ETH||0,'ETH',{fmt:v=>n(v,2),sub:['Gas Tank · BitGo','Gas Tank · BitGo']})],'assets')
+ ].join('')}</div>`;
+ const head=`<div class="tsum"><div><span class="muted">${L('Şirketin toplam varlığı','Total company assets')}</span><b class="mono">USD ${n(coUSD)}</b></div><div><span class="muted">${L('Gün içi kullanılabilir','Usable intraday')}</span><b class="mono">USD ${n(freeUSD)}</b></div><div><span class="muted">${L('Kilitli sermaye','Locked capital')}</span><b class="mono">AED ${n(LOCKED.AED||0)}</b></div></div>`;
+ return page({lead:['Önce şirketin kendi varlıkları: neyimiz var, neyimiz eksik. Sonra müşteri alım satımının ne kadarını karşılayabildiğimiz. Müşteri varlıkları ayrı tutulur ve hazine kararlarında kullanılmaz.','First the company\'s own assets: what we hold and what we lack. Then how much of client buying and selling we can cover. Client assets are kept separate and never used for treasury decisions.'],
+  acts:`${canView('assets')?btn(['Cüzdanlar ve hesaplar','Wallets and accounts'],'go','data-v="assets"'):''}${canView('rebalance')?btn(['Dengeleme','Rebalancing'],'go','data-v="rebalance"'):''}`,
+  body:sec(['Varlıklarımız','Our assets'],head+lackHtml+own)+
+  sec(['Neyi karşılayabiliyoruz','What we can cover'],`<div class="grid cols2">${
+   covBox(['Müşteri alımları','Client buying'],[`Stok ve basılabilir altın, müşterilerin elindeki nakit ve stablecoinin %${n(gold/bp*100,1)} kadarına yeter. Fazlası rafineriden alınır; büyük emir kasa talimatını ve basımı kendiliğinden açar.`,`Inventory and mintable gold cover ${n(gold/bp*100,1)}% of the cash and stablecoins clients hold. Anything above is bought at the Refinery; a large order opens the vault instruction and the mint by itself.`],
+    [[['Müşterilerin nakit ve stablecoini','Client cash and stablecoins'],'USD '+n(cliCash),[`≈ ${n(bp)} AGOLD alım gücü`,`≈ ${n(bp)} AGOLD of buying power`]],[['Hemen teslim edilebilir','Deliverable now'],n(gold)+' AGOLD',[`Bugün ayrıca basılabilecek: ${n(cap24Left())}`,`Can also mint today: ${n(cap24Left())}`]]],gold/bp*100)+
+   covBox(['Müşteri satışları','Client selling'],[`Şirketin serbest nakdi, müşterilerin elindeki AGOLD değerinin %${n(freeUSD/cliAgUSD*100,1)} kadarı. Müşteriden alınan AGOLD stoka girer, rafineriye satışın nakdi mahsuplaşmayla döner.`,`Free company cash equals ${n(freeUSD/cliAgUSD*100,1)}% of the value of AGOLD clients hold. AGOLD bought from clients goes into inventory, and the cash from selling to the Refinery comes back through netting.`],
+    [[['Müşterilerdeki AGOLD','AGOLD held by clients'],n(cliAg)+' AGOLD','USD '+n(cliAgUSD)],[['Şirketin serbest nakdi','Free company cash'],'USD '+n(freeUSD),['Fiat ve stablecoin, kilitli hesap hariç','Fiat and stablecoins, excluding the locked account']]],freeUSD/cliAgUSD*100)}</div>`)+
+  sec(['Son 24 saatte yüklü müşteri girişleri','Large client deposits in the last 24 hours'],table([{l:['Kayıt','Record'],f:m=>`<b class="mono">${m.id}</b><span class="sub">${m.date} ${m.t}</span>`},{l:['Müşteri','Client'],f:m=>`${esc((clientOf(m.c)||{}).nm||'')}<span class="sub mono">${m.c}</span>`},{l:['Tutar','Amount'],num:1,f:m=>fm(m.ccy,m.v)},{l:['AGOLD karşılığı','AGOLD equivalent'],num:1,f:m=>n(usd(m.ccy,m.v)/PX.ref)},{l:['Durum','Status'],f:m=>pill(MST[m.st].slice(0,2),MST[m.st][2])}],big,m=>movePanel(m.id),['Bugün yüklü giriş yok.','No large deposits today.'])+
+   note([`Toplam USD ${n(bigUSD)}, yaklaşık ${n(bigUSD/PX.ref)} AGOLD. Yüklü giriş çoğu zaman alımın habercisidir.`,`Total USD ${n(bigUSD)}, about ${n(bigUSD/PX.ref)} AGOLD. A large deposit often comes before a buy.`]),[`${big.length} kayıt`,`${big.length} records`])+
+  sec(['Müşteri varlıkları','Client assets'],`<div class="tsum one"><div><span class="muted">${L('Müşterilerin toplam varlığı','Total client assets')}</span><b class="mono">USD ${n(cliUSD)}</b></div></div>`+table([{l:['Varlık','Asset'],f:a=>`<b>${a}</b><span class="sub">${esc(T(CLI_WHERE(a)).replace(/^[A-Z]{1,2}-\d\d(, [A-Z]{1,2}-\d\d)* · /,''))}</span>`},{l:['Müşteri defteri','Client ledger'],num:1,f:a=>n(CLIENT_TOT[a]||0,a==='AGOLD'?2:0)},{l:['Tutulan','Held'],num:1,f:a=>n(CLIENT_HELD[a]??CLIENT_TOT[a]??0,a==='AGOLD'?2:0)},{l:['Mutabakat','Reconciliation'],f:a=>pill(['Tuttu','Match'],'pos')}],['AGOLD','AED','USD','EUR','USDT','USDC'])+
+   note(['Müşteri varlıkları şirketin değildir. Dengelemede, hazine kararlarında ve sermaye hesabında kullanılmaz. Müşteri başına alt defter müşteri sayfasındadır.','Client assets are not the company\'s. They are never used in rebalancing, treasury decisions or capital. The per-client sub-ledger is on the client page.']),['Ayrı tutulur','Kept separate'])});
+};
+
+// ----- 5. Page header: the top bar already names the section, so pages show only the title and the short lead -----
+const _page11=page;
+page=o=>{const h=_page11(o);return o&&!o.eyebrow?h.replace(/(<div class="ph"><div class="t">)<div class="eyebrow">[^<]*<\/div>/,'$1'):h;};
 
 ;
 // ===== m1: mobile layout behaviours =====
