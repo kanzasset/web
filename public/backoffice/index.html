@@ -141,7 +141,7 @@ td .sub{display:block;font-size:11.5px;color:var(--muted)}
 /* panel */
 .scrim{position:fixed;inset:0;background:rgba(10,10,10,.28);opacity:0;pointer-events:none;transition:opacity .18s;z-index:40}
 .scrim.on{opacity:1;pointer-events:auto}
-.panel{position:fixed;top:0;right:0;bottom:0;width:min(520px,100vw);background:var(--card);border-left:1px solid var(--line);box-shadow:var(--shadow);transform:translateX(102%);transition:transform .22s ease;z-index:50;display:flex;flex-direction:column;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px);padding-right:env(safe-area-inset-right,0px)}
+.panel{position:fixed;top:0;right:0;bottom:0;width:min(520px,100%);background:var(--card);border-left:1px solid var(--line);box-shadow:var(--shadow);transform:translateX(102%);transition:transform .22s ease;z-index:50;display:flex;flex-direction:column;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px);padding-right:env(safe-area-inset-right,0px)}
 .panel.on{transform:none}
 .pnh{display:flex;gap:10px;align-items:flex-start;padding:18px 20px;border-bottom:1px solid var(--line)}
 .pnh .t{flex:1;min-width:0}
@@ -191,7 +191,7 @@ textarea,input[type=text],input[type=number]{border:1px solid var(--line2);backg
 .who .nm small{font-size:10.5px;color:var(--muted);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
 .av{width:28px;height:28px;border-radius:50%;background:var(--ink);color:var(--card);display:grid;place-items:center;font-weight:800;font-size:11px;flex:none}
 .av.lg{width:56px;height:56px;font-size:19px}
-.dd{position:fixed;top:60px;right:max(12px,env(safe-area-inset-right,0px));width:min(300px,calc(100vw - 24px));background:var(--card);border:1px solid var(--line);border-radius:14px;box-shadow:var(--shadow);z-index:35;padding:8px;display:none}
+.dd{position:fixed;top:60px;right:max(12px,env(safe-area-inset-right,0px));width:min(300px,calc(100% - 24px));background:var(--card);border:1px solid var(--line);border-radius:14px;box-shadow:var(--shadow);z-index:35;padding:8px;display:none}
 .dd.on{display:block}
 .dd .hd{display:flex;gap:10px;align-items:center;padding:8px 8px 12px;border-bottom:1px solid var(--line);margin-bottom:6px}
 .dd .it{display:flex;align-items:center;justify-content:space-between;gap:8px;width:100%;border:0;background:none;padding:9px 10px;border-radius:8px;cursor:pointer;font-weight:600;text-align:left}
@@ -420,7 +420,7 @@ body{overflow-x:clip}
   table.cardt td.cempty{display:none}
   table.cardt td.cfull{display:block;text-align:left;border-top:0}
   table.cardt td.cfull::before{content:none}
-  table.cardt td .sub{display:block}
+  table.cardt td .sub{display:block} table.cardt td .pill{white-space:normal;text-align:right;max-width:100%}
   table.cardt tr[data-t]:hover td{background:none!important}
   table.cardt tr[data-t]:active{background:var(--surface2)}
   /* tab bars that scroll sideways: fade where more tabs are hidden */
