@@ -1,8 +1,9 @@
 name: Deploy to GitHub Pages
 
-# Manual only for now. The site must not go live until it is approved.
-# To publish: Actions > Deploy to GitHub Pages > Run workflow.
+# Deploys on every push to main, or by hand from the Actions tab.
 on:
+  push:
+    branches: [main]
   workflow_dispatch:
 
 permissions:
