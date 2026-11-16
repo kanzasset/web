@@ -428,6 +428,8 @@ body{overflow-x:clip}
   .tabs.ml{-webkit-mask-image:linear-gradient(to left,#000 82%,transparent);mask-image:linear-gradient(to left,#000 82%,transparent)}
   .tabs.ml.mr{-webkit-mask-image:linear-gradient(to right,transparent,#000 14%,#000 86%,transparent);mask-image:linear-gradient(to right,transparent,#000 14%,#000 86%,transparent)}
 }
+/* phones: bigger hit area for links in text, pills wrap instead of overflowing */
+@media (max-width:700px){ .content a:not(.btn),.panel a:not(.btn){position:relative} .content a:not(.btn)::after,.panel a:not(.btn)::after{content:"";position:absolute;inset:-12px -6px} .pill{max-width:100%;white-space:normal} }
 </style>
 
 <div class="app" id="app">
