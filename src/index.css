@@ -1,0 +1,145 @@
+*, *::before, *::after { box-sizing: border-box; }
+html, body, #root { height: 100%; margin: 0; padding: 0; }
+body { overflow: hidden; -webkit-font-smoothing: antialiased; -moz-osx-font-smoothing: grayscale; text-rendering: optimizeLegibility; }
+
+/* ── Modern polish layer ─────────────────────────────────────
+   Theme-neutral micro-interactions layered on top of the inline
+   styles. Colors here use translucent grays / the brand red only,
+   so light and dark themes both stay correct. */
+
+::selection { background: rgba(212, 32, 43, 0.16); }
+
+/* Slim, unobtrusive scrollbars */
+*::-webkit-scrollbar { width: 8px; height: 8px; }
+*::-webkit-scrollbar-track { background: transparent; }
+*::-webkit-scrollbar-thumb { background: rgba(127, 127, 127, 0.25); border-radius: 8px; }
+*::-webkit-scrollbar-thumb:hover { background: rgba(127, 127, 127, 0.4); }
+* { scrollbar-width: thin; scrollbar-color: rgba(127,127,127,0.3) transparent; }
+
+/* Every button gets smooth state transitions + a tactile press */
+button {
+  transition: background .16s ease, color .16s ease, border-color .16s ease,
+              box-shadow .16s ease, opacity .16s ease, filter .16s ease,
+              transform .1s ease;
+}
+button:not(:disabled):active { transform: scale(0.97); }
+
+/* Screens: top-level blocks cascade in one after another */
+@keyframes kzScreenIn {
+  from { opacity: 0; transform: translateY(10px); }
+  to   { opacity: 1; transform: none; }
+}
+/* Screens: top-level blocks cascade in one after another.
+   NOTE: fill-mode must be 'backwards' (not 'both') — a filled transform
+   animation keeps acting as the containing block for position:fixed
+   children in Chrome, which would trap modals inside their section. */
+main > * > * { animation: kzScreenIn .38s cubic-bezier(.2, .7, .3, 1) backwards; }
+main > * > *:nth-child(2) { animation-delay: .06s; }
+main > * > *:nth-child(3) { animation-delay: .12s; }
+main > * > *:nth-child(4) { animation-delay: .18s; }
+main > * > *:nth-child(n+5) { animation-delay: .24s; }
+
+/* Modals / popovers scale in */
+@keyframes kzPop {
+  from { opacity: 0; transform: scale(.96) translateY(10px); }
+  to   { opacity: 1; transform: none; }
+}
+.kz-pop { animation: kzPop .22s cubic-bezier(.2, .8, .3, 1); }
+
+/* Cards: soft layered depth, gentle lift for clickable ones */
+.kz-card { transition: box-shadow .22s ease, transform .22s ease, border-color .22s ease; }
+
+/* Primary button: neutral lift on hover (brand keeps its own colour) */
+.kz-btn-primary:not(:disabled):hover {
+  filter: brightness(1.08);
+  box-shadow: 0 1px 0 rgba(255,255,255,0.12) inset, 0 8px 22px -10px rgba(16, 17, 20, 0.5);
+}
+.kz-btn-red:not(:disabled):hover {
+  box-shadow: 0 1px 0 rgba(255,255,255,0.14) inset, 0 8px 22px -8px rgba(212, 32, 43, 0.55);
+}
+
+/* Price chart: line draws in left→right, fill fades up after */
+@keyframes kzDraw { from { stroke-dashoffset: 1; } to { stroke-dashoffset: 0; } }
+.kz-chart-line { stroke-dasharray: 1; animation: kzDraw 1.1s cubic-bezier(.4, 0, .2, 1) both; }
+@keyframes kzFillIn { from { opacity: 0; } to { opacity: 1; } }
+.kz-chart-fill { animation: kzFillIn .8s ease .45s both; }
+
+/* Theme switch: colors crossfade instead of snapping (class is added
+   for ~500ms by applyTheme) */
+.kz-theme-anim *, .kz-theme-anim *::before, .kz-theme-anim *::after {
+  transition: background-color .4s ease, color .4s ease,
+              border-color .4s ease, box-shadow .4s ease, fill .4s ease, stroke .4s ease !important;
+}
+
+/* Buy/Sell direction flip */
+@keyframes kzFlip {
+  from { opacity: 0; transform: perspective(900px) rotateX(-7deg) translateY(8px); }
+  to   { opacity: 1; transform: none; }
+}
+.kz-flip { animation: kzFlip .32s cubic-bezier(.2, .7, .3, 1); transform-origin: top center; }
+
+/* Notification bell swing (has unread) */
+@keyframes kzRing {
+  0%, 100% { transform: rotate(0); }
+  6%  { transform: rotate(14deg); }
+  12% { transform: rotate(-11deg); }
+  18% { transform: rotate(7deg); }
+  24% { transform: rotate(-4deg); }
+  30% { transform: rotate(0); }
+}
+.kz-ring { animation: kzRing 4.5s ease-in-out infinite; transform-origin: top center; display: inline-grid; place-items: center; }
+
+/* Confetti burst (trade success) */
+@keyframes kzConfetti {
+  0%   { transform: translate(0, 0) rotate(0); opacity: 1; }
+  100% { transform: translate(var(--kz-drift, 0px), 460px) rotate(var(--kz-rot, 220deg)); opacity: 0; }
+}
+
+/* Gold bars pop in one by one (physical delivery picker) */
+@keyframes kzBarIn {
+  from { opacity: 0; transform: translateY(10px) scale(.75); }
+  to   { opacity: 1; transform: none; }
+}
+.kz-bar { animation: kzBarIn .32s cubic-bezier(.2, .8, .3, 1) both; }
+
+/* Transaction rows nudge right on hover */
+.kz-row:hover { transform: translateX(3px); }
+
+/* Coins give a playful tilt on row hover */
+.kz-coin { display: inline-flex; transition: transform .18s ease; }
+.kz-row:hover .kz-coin, .kz-coin:hover { transform: scale(1.12) rotate(-8deg); }
+
+/* Gold sheen sweep — periodic glint across hero/brand surfaces */
+@keyframes kzSheen {
+  0%, 55%   { transform: translateX(-130%); }
+  90%, 100% { transform: translateX(130%); }
+}
+.kz-sheen { animation: kzSheen 6s ease-in-out infinite; }
+
+/* Flowing gold gradient text */
+@keyframes kzGoldText { to { background-position: 200% 0; } }
+.kz-gold-text {
+  background: linear-gradient(100deg, #E8C97B 10%, #FFF3D6 35%, #D9A441 60%, #E8C97B 90%);
+  background-size: 200% 100%;
+  -webkit-background-clip: text; background-clip: text;
+  -webkit-text-fill-color: transparent; color: transparent;
+  animation: kzGoldText 4s linear infinite;
+}
+
+/* Live-price pulse dot */
+@keyframes kzPulse {
+  0%   { box-shadow: 0 0 0 0 rgba(15, 122, 71, 0.45); }
+  70%  { box-shadow: 0 0 0 6px rgba(15, 122, 71, 0); }
+  100% { box-shadow: 0 0 0 0 rgba(15, 122, 71, 0); }
+}
+.kz-pulse { animation: kzPulse 2s ease-out infinite; }
+
+/* Green (buy) primary: hover glow in green instead of red */
+.kz-btn-green:not(:disabled):hover {
+  box-shadow: 0 1px 0 rgba(255,255,255,0.14) inset, 0 8px 22px -8px rgba(15, 122, 71, 0.55);
+}
+
+/* Secondary / ghost / nav: subtle theme-neutral hover wash */
+.kz-btn-secondary:not(:disabled):hover { background: rgba(127, 127, 127, 0.08) !important; }
+.kz-ghost:hover { background: rgba(127, 127, 127, 0.08); }
+.kz-nav:hover { background: rgba(127, 127, 127, 0.07) !important; }
