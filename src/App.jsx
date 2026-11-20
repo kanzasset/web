@@ -9,7 +9,6 @@ import { ToastHost } from './components/Toast.jsx';
 import { WebAuth } from './screens/Login.jsx';
 import { WebPortfolio } from './screens/Dashboard.jsx';
 import { WebWallet } from './screens/Wallet.jsx';
-import { WebMint } from './screens/Mint.jsx';
 import { WebRedeem, WebPhysicalRedeem } from './screens/Redeem.jsx';
 import { WebTrade } from './screens/Trade.jsx';
 import { WebDeposit } from './screens/Deposit.jsx';
@@ -25,7 +24,6 @@ function Screen({ active, navigate, onLogout, onOpenTx, profileSection, profileK
     case 'wallet':    return <WebWallet    navigate={navigate} />;
     case 'trade':     return <WebTrade     key={tradeKey} navigate={navigate} onOpenTx={onOpenTx} initialSide={tradeSide} />;
     case 'physical':  return <WebPhysicalRedeem navigate={navigate} onOpenTx={onOpenTx} />;
-    case 'mint':      return <WebMint      navigate={navigate} onOpenTx={onOpenTx} />;
     case 'redeem':    return <WebRedeem    navigate={navigate} onOpenTx={onOpenTx} />;
     case 'deposit':   return <WebDeposit   navigate={navigate} onOpenTx={onOpenTx} />;
     case 'withdraw':  return <WebWithdraw  navigate={navigate} onOpenTx={onOpenTx} />;
